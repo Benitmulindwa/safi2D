@@ -14,7 +14,7 @@ def draw_rectangle(x1, y1, x2, y2):
 
 
 # Save the pixel buffer to a PPM file
-draw_line(0, 0, 100, 100)
+draw_rectangle(10, 100, 300, 300)
 with open("output.ppm", "w") as f:
     f.write("P3\n")
     f.write(f"{400} {400}\n")
