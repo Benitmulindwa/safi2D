@@ -109,6 +109,39 @@ class Canvas:
             # Connect each point to the next one
             self.draw_line(*points[i], *points[(i + 1) % num_points], color)
 
+    # DRAW A FILLED POLYGON
+
+    def draw_filled_polygon(self, points: list, color: tuple):
+        # Find the minimum and maximum y-coordinates of the polygon
+        min_y = min(point[1] for point in points)
+        max_y = max(point[1] for point in points)
+
+        # Iterate over each scanline within the polygon's bounding box
+        for y in range(min_y, max_y + 1):
+            intersections = []  # List to store x-coordinates of intersections
+            num_points = len(points)
+
+            # Iterate over each edge of the polygon
+            for i in range(num_points):
+                x1, y1 = points[i]
+                x2, y2 = points[(i + 1) % num_points]
+
+                # Check if the edge intersects with the current scanline
+                if (y1 <= y < y2) or (y2 <= y < y1):
+                    # Calculate the x-coordinate of the intersection point
+                    x_intersection = x1 + (y - y1) * (x2 - x1) / (y2 - y1)
+                    intersections.append(x_intersection)
+
+            # Sort the intersection points in increasing order
+            intersections.sort()
+
+            # Fill the pixels between pairs of intersection points
+            for i in range(0, len(intersections), 2):
+                x_start = max(0, int(intersections[i]))
+                x_end = min(self.WIDTH - 1, int(intersections[i + 1]))
+                for x in range(x_start, x_end + 1):
+                    self.pixels[y][x] = color
+
 
 def main():
     import time

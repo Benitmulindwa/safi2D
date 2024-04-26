@@ -66,6 +66,6 @@ vertices = [
 ]
 
 # Draw an OCTOGON
-polygon.draw_polygon(vertices, (255, 200, 0))
+polygon.draw_filled_polygon(vertices, (255, 200, 0))
 
-polygon.save("outputs/polygon.ppm")
+polygon.save("outputs/filled_polygon.ppm")
