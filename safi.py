@@ -1,8 +1,8 @@
 class Canvas:
-    def __init__(self, file_path: str, HEIGHT: int, WIDTH: int, bgcolor: tuple):
+    def __init__(self, file_path: str, WIDTH: int, HEIGHT: int, bgcolor: tuple):
         self.file_path: str = file_path
-        self.HEIGHT: int = HEIGHT
         self.WIDTH: int = WIDTH
+        self.HEIGHT: int = HEIGHT
         self.bgcolor: tuple = bgcolor
 
         # Fill the pixel buffer with colors
@@ -29,11 +29,13 @@ class Canvas:
                     )
                 f.write("\n")
 
+    # DRAW A RECTANGLE
     def draw_rectangle(self, x1: int, y1: int, x2: int, y2: int, color: tuple):
         for i in range(max(0, y1 - 1), min(len(self.pixels), y2 + 1)):
             for j in range(max(0, x1 - 1), min(len(self.pixels[0]), x2 + 1)):
                 self.pixels[i][j] = color
 
+    # DRAW A LINE
     def draw_line(self, x1: int, y1: int, x2: int, y2: int, color: tuple):
         dx = abs(x1 - x2)
         dy = abs(y1 - y2)
@@ -46,25 +48,23 @@ class Canvas:
         x = x1
         y = y1
         for _ in range(steps):
-            self.pixels[y][x] = color
+            self.pixels[int(y)][int(x)] = color
+            x += x_increment
+            y += y_increment
 
 
 def main():
-    rows = 10
-    cols = 10
-    img = Canvas("output1.ppm", 400, 400, bgcolor=(255, 0, 255))
-    # img.draw_rectangle(100, 100, 300, 300, color=(0, 0, 0))
-    for y in range(0, rows):
-        for x in range(0, cols):
-            if (x + y) % 2 == 0:
-                color = (255, 0, 0)
-            else:
-                color = (0, 255, 0)
-            img.draw_rectangle(
-                x * (400 // rows), y * (400 // rows), 400, 400, color=color
-            )
+    HIGHT = 400
+    WIDTH = 400
+
+    img = Canvas("output1.ppm", WIDTH, HIGHT, bgcolor=(255, 255, 255))
+
+    # Draw an horizontal line
+    img.draw_line(0, HIGHT // 2, 400, HIGHT // 2, color=(0, 255, 0))
+
+    # Draw a vertical line
+    img.draw_line(WIDTH // 2, 0, WIDTH // 2, 400, color=(255, 0, 0))
     img.save()
-    # img.draw_line(0, 0, 200, 300, color=(255, 0, 0))
 
 
 if __name__ == "__main__":
