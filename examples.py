@@ -5,13 +5,12 @@ HEIGHT = 400
 WIDTH = 400
 
 
-# DRAW A DAME
+# DRAW A CHECKERBOARD
 # ------------------------#
 
 dame = Canvas(WIDTH, HEIGHT)
-rows = 10
-cols = 10
-
+rows = 8
+cols = 8
 
 for y in range(0, rows):
     for x in range(0, cols):
@@ -20,7 +19,7 @@ for y in range(0, rows):
         else:
             color = (0, 255, 100)  # Orange
         dame.draw_rectangle(x * (400 // rows), y * (400 // rows), 400, 400, color=color)
-dame.save("outputs/dame.ppm")
+dame.save("outputs/checherboard.ppm")
 
 # DRAW TWO PARALLEL LINES
 # ------------------------#
@@ -45,3 +44,28 @@ triangle = Canvas(WIDTH, HEIGHT)
 triangle.draw_triangle(p1, p2, p3, (255, 0, 0))
 
 triangle.save("outputs/triangle.ppm")
+
+
+# DRAW A POLYGON
+# ---------------#
+HEIGHT = 600
+WIDTH = 600
+
+polygon = Canvas(WIDTH, HEIGHT)
+
+# List of 8 vertices(to draw an octogon)
+vertices = [
+    (300, 100),
+    (450, 150),
+    (500, 300),
+    (450, 450),
+    (300, 500),
+    (150, 450),
+    (100, 300),
+    (150, 150),
+]
+
+# Draw an OCTOGON
+polygon.draw_polygon(vertices, (255, 200, 0))
+
+polygon.save("outputs/polygon.ppm")

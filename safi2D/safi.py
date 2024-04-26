@@ -102,6 +102,13 @@ class Canvas:
         self.draw_line(*p2, *p3, color)
         self.draw_line(*p3, *p1, color)
 
+    # DRAW A POLYGON
+    def draw_polygon(self, points: list, color: tuple):
+        num_points = len(points)
+        for i in range(num_points):
+            # Connect each point to the next one
+            self.draw_line(*points[i], *points[(i + 1) % num_points], color)
+
 
 def main():
     import time
@@ -113,17 +120,12 @@ def main():
     # TESTs
     img = Canvas(WIDTH, HEIGHT)
     # img.draw_rectangle(100, 100, 300, 300, color=(0, 0, 0))
-    # img.draw_circle(center=(WIDTH // 2, HEIGHT // 2), radius=50, color=(255, 0, 0))
+    img.draw_circle(center=(WIDTH // 2, HEIGHT // 2), radius=50, color=(255, 0, 0))
     # img.draw_circle(center=(25, 20), radius=15, color=(255, 200, 0))
     # img.draw_line(0, HEIGHT // 2, 600, HEIGHT // 2, color=(0, 255, 0))
     # img.draw_line(WIDTH // 2, 0, WIDTH // 2, 600, color=(255, 0, 0))
-    # img.save("outputs/circle.ppm")
-    p1 = (100, 100)
-    p2 = (350, 100)
-    p3 = (300, 350)
+    img.save("outputs/circle.ppm")
 
-    img.draw_triangle(p1, p2, p3, (255, 0, 0))
-    img.save("outputs/triangle.ppm")
     end = time.time()
 
     print(f"Execution time: {end-start} secondes")
