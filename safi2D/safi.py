@@ -36,17 +36,19 @@ class Canvas:
 
     # DRAW A LINE
     def draw_line(self, x1: int, y1: int, x2: int, y2: int, color: tuple):
-        dx = abs(x1 - x2)
-        dy = abs(y1 - y2)
+        dx = abs(x2 - x1)
+        dy = abs(y2 - y1)
         if dx >= dy:
             steps = dx
+            x_increment = 1 if x2 > x1 else -1
+            y_increment = dy / dx if y2 > y1 else -dy / dx
         else:
             steps = dy
-        x_increment = (x2 - x1) / steps
-        y_increment = (y2 - y1) / steps
+            y_increment = 1 if y2 > y1 else -1
+            x_increment = dx / dy if x2 > x1 else -dx / dy
         x = x1
         y = y1
-        for _ in range(steps):
+        for _ in range(int(steps)):
             self.pixels[int(y)][int(x)] = color
             x += x_increment
             y += y_increment
@@ -102,11 +104,13 @@ def main():
     HEIGHT = 600
     WIDTH = 600
 
+    # TESTs
     img = Canvas(WIDTH, HEIGHT)
     img.draw_rectangle(100, 100, 300, 300, color=(0, 0, 0))
     img.draw_circle(center=(WIDTH // 2, HEIGHT // 2), radius=50, color=(255, 0, 0))
     img.draw_circle(center=(25, 20), radius=15, color=(255, 200, 0))
     img.draw_line(0, HEIGHT // 2, 600, HEIGHT // 2, color=(0, 255, 0))
+    img.draw_line(WIDTH // 2, 0, WIDTH // 2, 600, color=(255, 0, 0))
     img.save("outputs/circle.ppm")
     end = time.time()
 
