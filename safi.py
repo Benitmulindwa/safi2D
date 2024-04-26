@@ -17,6 +17,7 @@ class Canvas:
             for j in range(self.WIDTH):
                 self.pixels[i][j] = self.bgcolor
 
+    # Save the pixel buffer to a PPM file
     def save(self):
         with open(self.file_path, "w") as f:
             f.write("P3\n")
@@ -32,14 +33,39 @@ class Canvas:
         for i in range(max(0, y1 - 1), min(len(self.pixels), y2 + 1)):
             for j in range(max(0, x1 - 1), min(len(self.pixels[0]), x2 + 1)):
                 self.pixels[i][j] = color
-        self.save()
+
+    def draw_line(self, x1: int, y1: int, x2: int, y2: int, color: tuple):
+        dx = abs(x1 - x2)
+        dy = abs(y1 - y2)
+        if dx >= dy:
+            steps = dx
+        else:
+            steps = dy
+        x_increment = (x2 - x1) / steps
+        y_increment = (y2 - y1) / steps
+        x = x1
+        y = y1
+        for _ in range(steps):
+            self.pixels[y][x] = color
 
 
 def main():
-    img = Canvas("output1.ppm", 500, 400, bgcolor=(255, 255, 255))
-    img.draw_rectangle(100, 100, 300, 300, color=(0, 0, 0))
+    rows = 10
+    cols = 10
+    img = Canvas("output1.ppm", 400, 400, bgcolor=(255, 0, 255))
+    # img.draw_rectangle(100, 100, 300, 300, color=(0, 0, 0))
+    for y in range(0, rows):
+        for x in range(0, cols):
+            if (x + y) % 2 == 0:
+                color = (255, 0, 0)
+            else:
+                color = (0, 255, 0)
+            img.draw_rectangle(
+                x * (400 // rows), y * (400 // rows), 400, 400, color=color
+            )
+    img.save()
+    # img.draw_line(0, 0, 200, 300, color=(255, 0, 0))
 
 
-# Save the pixel buffer to a PPM file
 if __name__ == "__main__":
     main()
