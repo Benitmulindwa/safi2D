@@ -1,3 +1,6 @@
+import utils
+
+
 class Canvas:
     def __init__(self, WIDTH: int, HEIGHT: int, bgcolor: tuple = (255, 255, 255)):
         self.WIDTH: int = WIDTH
@@ -51,6 +54,16 @@ class Canvas:
             x += x_increment
             y += y_increment
 
+    # DRAW A CIRCLE
+    def draw_circle(self, center: tuple, radius, color):
+        for y in range(self.HEIGHT):
+            for x in range(self.WIDTH):
+                if (
+                    utils.square_root((x - center[0]) ** 2 + (y - center[1]) ** 2)
+                    <= radius
+                ):
+                    self.pixels[y][x] = color
+
 
 def main():
     import math
@@ -60,12 +73,9 @@ def main():
 
     img = Canvas(WIDTH, HEIGHT)
 
-    # Draw an horizontal line
-    img.draw_line(0, HEIGHT // 2, 400, HEIGHT // 2, color=(0, 255, 0))
-
-    # Draw a vertical line
-    img.draw_line(WIDTH // 2, 0, WIDTH // 2, 400, color=(255, 0, 0))
-    img.save("outputs/crossinglines.ppm")
+    img.draw_circle(center=(WIDTH // 2, HEIGHT // 2), radius=50, color=(255, 0, 0))
+    img.draw_circle(center=(25, 20), radius=15, color=(255, 200, 0))
+    img.save("outputs/circle.ppm")
 
 
 if __name__ == "__main__":
