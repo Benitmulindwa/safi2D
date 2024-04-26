@@ -1,6 +1,5 @@
 class Canvas:
-    def __init__(self, file_path: str, WIDTH: int, HEIGHT: int, bgcolor: tuple):
-        self.file_path: str = file_path
+    def __init__(self, WIDTH: int, HEIGHT: int, bgcolor: tuple = (255, 255, 255)):
         self.WIDTH: int = WIDTH
         self.HEIGHT: int = HEIGHT
         self.bgcolor: tuple = bgcolor
@@ -18,8 +17,8 @@ class Canvas:
                 self.pixels[i][j] = self.bgcolor
 
     # Save the pixel buffer to a PPM file
-    def save(self):
-        with open(self.file_path, "w") as f:
+    def save(self, file_name):
+        with open(file_name, "w") as f:
             f.write("P3\n")
             f.write(f"{self.WIDTH} {self.HEIGHT}\n")
             for row in self.pixels:
@@ -54,17 +53,19 @@ class Canvas:
 
 
 def main():
-    HIGHT = 400
+    import math
+
+    HEIGHT = 400
     WIDTH = 400
 
-    img = Canvas("output1.ppm", WIDTH, HIGHT, bgcolor=(255, 255, 255))
+    img = Canvas(WIDTH, HEIGHT)
 
     # Draw an horizontal line
-    img.draw_line(0, HIGHT // 2, 400, HIGHT // 2, color=(0, 255, 0))
+    img.draw_line(0, HEIGHT // 2, 400, HEIGHT // 2, color=(0, 255, 0))
 
     # Draw a vertical line
     img.draw_line(WIDTH // 2, 0, WIDTH // 2, 400, color=(255, 0, 0))
-    img.save()
+    img.save("output1.ppm")
 
 
 if __name__ == "__main__":

@@ -1,8 +1,8 @@
-from safi import Canvas
+from ..safi2D.safi import Canvas
 
 rows = 10
 cols = 10
-img = Canvas("dame.ppm", 400, 400, bgcolor=(0, 0, 0))
+img = Canvas("outputs/dame.ppm", 400, 400, bgcolor=(0, 0, 0))
 img.draw_rectangle(100, 100, 300, 300, color=(0, 0, 0))
 for y in range(0, rows):
     for x in range(0, cols):
