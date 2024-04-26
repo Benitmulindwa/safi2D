@@ -34,7 +34,7 @@ class Canvas:
             for j in range(max(0, x1 - 1), min(len(self.pixels[0]), x2 + 1)):
                 self.pixels[i][j] = color
 
-    # DRAW A LINE
+    # DRAW A LINE(Bresenham's line drawing algorithm)
     def draw_line(self, x1: int, y1: int, x2: int, y2: int, color: tuple):
         dx = abs(x2 - x1)
         dy = abs(y2 - y1)
@@ -96,22 +96,34 @@ class Canvas:
 
     """------------------------------------------------------------------"""
 
+    # DRAW A TRIANGLE(by intersection of three lines)
+    def draw_triangle(self, p1: tuple, p2: tuple, p3: tuple, color: tuple):
+        self.draw_line(*p1, *p2, color)
+        self.draw_line(*p2, *p3, color)
+        self.draw_line(*p3, *p1, color)
+
 
 def main():
     import time
 
     start = time.time()
-    HEIGHT = 600
-    WIDTH = 600
+    HEIGHT = 400
+    WIDTH = 400
 
     # TESTs
     img = Canvas(WIDTH, HEIGHT)
-    img.draw_rectangle(100, 100, 300, 300, color=(0, 0, 0))
-    img.draw_circle(center=(WIDTH // 2, HEIGHT // 2), radius=50, color=(255, 0, 0))
-    img.draw_circle(center=(25, 20), radius=15, color=(255, 200, 0))
-    img.draw_line(0, HEIGHT // 2, 600, HEIGHT // 2, color=(0, 255, 0))
-    img.draw_line(WIDTH // 2, 0, WIDTH // 2, 600, color=(255, 0, 0))
-    img.save("outputs/circle.ppm")
+    # img.draw_rectangle(100, 100, 300, 300, color=(0, 0, 0))
+    # img.draw_circle(center=(WIDTH // 2, HEIGHT // 2), radius=50, color=(255, 0, 0))
+    # img.draw_circle(center=(25, 20), radius=15, color=(255, 200, 0))
+    # img.draw_line(0, HEIGHT // 2, 600, HEIGHT // 2, color=(0, 255, 0))
+    # img.draw_line(WIDTH // 2, 0, WIDTH // 2, 600, color=(255, 0, 0))
+    # img.save("outputs/circle.ppm")
+    p1 = (100, 100)
+    p2 = (350, 100)
+    p3 = (300, 350)
+
+    img.draw_triangle(p1, p2, p3, (255, 0, 0))
+    img.save("outputs/triangle.ppm")
     end = time.time()
 
     print(f"Execution time: {end-start} secondes")
