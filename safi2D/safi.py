@@ -65,7 +65,7 @@ def main():
 
     # Draw a vertical line
     img.draw_line(WIDTH // 2, 0, WIDTH // 2, 400, color=(255, 0, 0))
-    img.save("output1.ppm")
+    img.save("outputs/crossinglines.ppm")
 
 
 if __name__ == "__main__":
