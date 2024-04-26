@@ -1,6 +1,3 @@
-import utils
-
-
 class Canvas:
     def __init__(self, WIDTH: int, HEIGHT: int, bgcolor: tuple = (255, 255, 255)):
         self.WIDTH: int = WIDTH
@@ -54,28 +51,66 @@ class Canvas:
             x += x_increment
             y += y_increment
 
-    # DRAW A CIRCLE
+    """
+    DRAW A CIRCLE
+    using the Bresenham's circle drawing algorithm: https://www.geeksforgeeks.org/bresenhams-circle-drawing-algorithm/)
+    
+    """
+
     def draw_circle(self, center: tuple, radius, color):
-        for y in range(self.HEIGHT):
-            for x in range(self.WIDTH):
-                if (
-                    utils.square_root((x - center[0]) ** 2 + (y - center[1]) ** 2)
-                    <= radius
-                ):
-                    self.pixels[y][x] = color
+        x, y = center
+        x = int(x)
+        y = int(y)
+        radius = int(radius)
+        # Initialize variables
+        d = 3 - 2 * radius
+        x_ = 0
+        y_ = radius
+        # Draw circle points
+        while x_ <= y_:
+            self._draw_circle_points(x, y, x_, y_, color)
+            x_ += 1
+            if d < 0:
+                d += 4 * x_ + 6
+            else:
+                d += 4 * (x_ - y_) + 10
+                y_ -= 1
+
+    # Draw circle points
+    def _draw_circle_points(self, cx, cy, x, y, color):
+        self._plot_point(cx + x, cy + y, color)
+        self._plot_point(cx - x, cy + y, color)
+        self._plot_point(cx + x, cy - y, color)
+        self._plot_point(cx - x, cy - y, color)
+        self._plot_point(cx + y, cy + x, color)
+        self._plot_point(cx - y, cy + x, color)
+        self._plot_point(cx + y, cy - x, color)
+        self._plot_point(cx - y, cy - x, color)
+
+    # Helper method to plot a point
+    def _plot_point(self, x, y, color):
+        if 0 <= x < self.WIDTH and 0 <= y < self.HEIGHT:
+            self.pixels[y][x] = color
+
+    """------------------------------------------------------------------"""
 
 
 def main():
-    import math
+    import time
 
-    HEIGHT = 400
-    WIDTH = 400
+    start = time.time()
+    HEIGHT = 600
+    WIDTH = 600
 
     img = Canvas(WIDTH, HEIGHT)
-
+    img.draw_rectangle(100, 100, 300, 300, color=(0, 0, 0))
     img.draw_circle(center=(WIDTH // 2, HEIGHT // 2), radius=50, color=(255, 0, 0))
     img.draw_circle(center=(25, 20), radius=15, color=(255, 200, 0))
+    img.draw_line(0, HEIGHT // 2, 600, HEIGHT // 2, color=(0, 255, 0))
     img.save("outputs/circle.ppm")
+    end = time.time()
+
+    print(f"Execution time: {end-start} secondes")
 
 
 if __name__ == "__main__":

@@ -12,7 +12,7 @@ dame = Canvas(WIDTH, HEIGHT)
 rows = 10
 cols = 10
 
-dame.draw_rectangle(100, 100, 300, 300, color=(0, 0, 0))
+
 for y in range(0, rows):
     for x in range(0, cols):
         if (x + y) % 2 == 0:
