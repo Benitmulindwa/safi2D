@@ -67,5 +67,17 @@ vertices = [
 
 # Draw an OCTOGON
 polygon.draw_filled_polygon(vertices, (255, 200, 0))
-
 polygon.save("outputs/filled_polygon.ppm")
+
+HEIGHT = 600
+WIDTH = 600
+
+curve = Canvas(WIDTH, HEIGHT)
+
+# Define the control points of the Bézier curve
+control_points = [(100, 100), (200, 400), (400, 200), (500, 500)]
+
+# Draw the Bézier curve
+curve.draw_bezier_curve(control_points, (255, 0, 0))
+
+curve.save("outputs/bezier_curve.ppm")

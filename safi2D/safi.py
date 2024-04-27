@@ -205,22 +205,50 @@ class Canvas:
         self.pixels[cy - y][cx + x] = color
         self.pixels[cy - y][cx - x] = color
 
+    # DRAW A BÉZIER CURVE
+    def draw_bezier_curve(
+        self, control_points: list, color: tuple, num_segments: int = 100
+    ):
+        n = len(control_points)
+        if n < 2:
+            return
+
+        # Calculate points along the curve using De Casteljau's algorithm
+        t_values = [i / num_segments for i in range(num_segments + 1)]
+        curve_points = []
+        for t in t_values:
+            points = control_points[:]
+            while len(points) > 1:
+                new_points = []
+                for i in range(len(points) - 1):
+                    x = (1 - t) * points[i][0] + t * points[i + 1][0]
+                    y = (1 - t) * points[i][1] + t * points[i + 1][1]
+                    new_points.append((x, y))
+                points = new_points
+            curve_points.append(points[0])
+
+        # Draw the curve by connecting the calculated points
+        for i in range(len(curve_points) - 1):
+            x1, y1 = curve_points[i]
+            x2, y2 = curve_points[i + 1]
+            self.draw_line(int(x1), int(y1), int(x2), int(y2), color)
+
 
 def main():
     import time
 
     start = time.time()
-    HEIGHT = 400
-    WIDTH = 400
+    HEIGHT = 600
+    WIDTH = 600
 
     # TESTs
-    img = Canvas(WIDTH, HEIGHT)
-    # img.draw_rectangle(100, 100, 300, 300, color=(0, 0, 0))
-    img.draw_filled_ellipse(
-        center=(WIDTH // 2, HEIGHT // 2), rx=100, ry=50, color=(0, 255, 0)
-    )
+    curve = Canvas(WIDTH, HEIGHT)
+    control_points = [(100, 100), (200, 400), (400, 200), (500, 500)]
 
-    img.save("outputs/ellipse.ppm")
+    # Draw the Bézier curve
+    curve.draw_bezier_curve(control_points, (25, 1, 0))
+
+    curve.save("outputs/bezier_curve.ppm")
 
     end = time.time()
 
