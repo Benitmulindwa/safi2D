@@ -1,4 +1,4 @@
-import utils
+from . import utils
 
 
 class Canvas:
@@ -20,7 +20,7 @@ class Canvas:
                 self.pixels[i][j] = self.bgcolor
 
     # Save the pixel buffer to a PPM file
-    def save(self, file_name):
+    def save(self, file_name: str):
         with open(file_name, "w") as f:
             f.write("P3\n")
             f.write(f"{self.WIDTH} {self.HEIGHT}\n")
@@ -62,7 +62,7 @@ class Canvas:
     
     """
 
-    def draw_circle(self, center: tuple, radius, color):
+    def draw_circle(self, center: tuple, radius: int, color: tuple):
         x, y = center
         x = int(x)
         y = int(y)
@@ -234,25 +234,65 @@ class Canvas:
             self.draw_line(int(x1), int(y1), int(x2), int(y2), color)
 
 
+import time
+
+
+def animate(canvas):
+    # Define keyframes
+    keyframes = [
+        # Example keyframe: (x, y, color)
+        ((100, 100), (255, 0, 0)),
+        ((300, 300), (0, 0, 255)),
+        ((100, 500), (0, 255, 0)),
+    ]
+
+    # Interpolation
+    num_frames_between_keyframes = 30  # Adjust as needed
+    frames = []
+    for i in range(len(keyframes) - 1):
+        start_frame = keyframes[i]
+        end_frame = keyframes[i + 1]
+        for j in range(num_frames_between_keyframes):
+            frame = interpolate(
+                start_frame, end_frame, j / num_frames_between_keyframes
+            )
+            frames.append(frame)
+    i = 0
+    # Rendering
+    for frame in frames:
+        canvas.set_bgcolor()  # Clear canvas
+        canvas.draw_filled_circle(frame[0], 50, frame[1])  # Draw circle
+        canvas.save(f"outputs/frame{i}.ppm")  # Save frame as PPM
+        # Convert frame to PNG if needed
+        # canvas.save_as_png("frame.ppm", "frame.png")  # Save frame as PNG
+        # Display frame or save to file
+        i += 1
+        time.sleep(0.1)  # Adjust for desired frame rate
+
+
+def interpolate(start_frame, end_frame, alpha):
+    # Linear interpolation
+    start_pos, start_color = start_frame
+    end_pos, end_color = end_frame
+    interp_pos = (
+        int(start_pos[0] + alpha * (end_pos[0] - start_pos[0])),
+        int(start_pos[1] + alpha * (end_pos[1] - start_pos[1])),
+    )
+    interp_color = (
+        int(start_color[0] + alpha * (end_color[0] - start_color[0])),
+        int(start_color[1] + alpha * (end_color[1] - start_color[1])),
+        int(start_color[2] + alpha * (end_color[2] - start_color[2])),
+    )
+    return (interp_pos, interp_color)
+
+
 def main():
-    import time
+    canvas = Canvas(600, 600)
+    animate(canvas)
 
-    start = time.time()
-    HEIGHT = 600
-    WIDTH = 600
 
-    # TESTs
-    curve = Canvas(WIDTH, HEIGHT)
-    control_points = [(100, 100), (200, 400), (400, 200), (500, 500)]
-
-    # Draw the Bézier curve
-    curve.draw_bezier_curve(control_points, (25, 1, 0))
-
-    curve.save("outputs/bezier_curve.ppm")
-
-    end = time.time()
-
-    print(f"Execution time: {end-start} secondes")
+if __name__ == "__main__":
+    main()
 
 
 if __name__ == "__main__":

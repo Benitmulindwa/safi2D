@@ -66,7 +66,7 @@ vertices = [
 ]
 
 # Draw an OCTOGON
-polygon.draw_filled_polygon(vertices, (255, 200, 0))
+polygon.draw_filled_polygon(points=vertices, color=(255, 200, 0))
 polygon.save("outputs/filled_polygon.ppm")
 
 HEIGHT = 600
