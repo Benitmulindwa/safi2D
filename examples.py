@@ -15,11 +15,11 @@ cols = 8
 for y in range(0, rows):
     for x in range(0, cols):
         if (x + y) % 2 == 0:
-            color = (200, 100, 200)  # cyan-like color
+            color = (100, 200, 200)  # cyan-like color
         else:
-            color = (0, 255, 100)  # Orange
+            color = (200, 100, 0)  # Orange
         dame.draw_rectangle(x * (400 // rows), y * (400 // rows), 400, 400, color=color)
-dame.save("outputs/checherboard.ppm")
+dame.save("outputs/checkerboard.ppm")
 
 # DRAW TWO PARALLEL LINES
 # ------------------------#

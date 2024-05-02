@@ -1,4 +1,4 @@
-from . import utils
+import math
 
 
 class Canvas:
@@ -24,6 +24,7 @@ class Canvas:
         with open(file_name, "w") as f:
             f.write("P3\n")
             f.write(f"{self.WIDTH} {self.HEIGHT}\n")
+            f.write("255\n")
             for row in self.pixels:
                 for pixel in row:
                     f.write(
@@ -113,7 +114,6 @@ class Canvas:
             self.draw_line(*points[i], *points[(i + 1) % num_points], color)
 
     # DRAW FILLED POLYGON
-
     def draw_filled_polygon(self, points: list, color: tuple):
         # Find the minimum and maximum y-coordinates of the polygon
         min_y = min(point[1] for point in points)
@@ -152,7 +152,7 @@ class Canvas:
         # Iterate over each scanline within the circle's bounding box
         for y in range(cy - radius, cy + radius + 1):
             # Calculate the width of the span at this y coordinate
-            span_width = int(utils.square_root(radius**2 - (y - cy) ** 2))
+            span_width = int(math.sqrt(radius**2 - (y - cy) ** 2))
 
             # Calculate the starting and ending x-coordinates of the span
             x_start = max(0, cx - span_width)
@@ -262,7 +262,7 @@ def animate(canvas):
     for frame in frames:
         canvas.set_bgcolor()  # Clear canvas
         canvas.draw_filled_circle(frame[0], 50, frame[1])  # Draw circle
-        canvas.save(f"outputs/frame{i}.ppm")  # Save frame as PPM
+        canvas.save(f"frames/frame{i}.ppm")  # Save frame as PPM
         # Convert frame to PNG if needed
         # canvas.save_as_png("frame.ppm", "frame.png")  # Save frame as PNG
         # Display frame or save to file
@@ -289,10 +289,6 @@ def interpolate(start_frame, end_frame, alpha):
 def main():
     canvas = Canvas(600, 600)
     animate(canvas)
-
-
-if __name__ == "__main__":
-    main()
 
 
 if __name__ == "__main__":
