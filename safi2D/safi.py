@@ -1,4 +1,5 @@
-import math
+import math, os
+from PIL import Image
 
 
 class Canvas:
@@ -21,7 +22,11 @@ class Canvas:
 
     # Save the pixel buffer to a PPM file
     def save(self, file_name: str):
-        with open(file_name, "w") as f:
+        format_list = [".png", ".jpg", ".PNG"]  # List of supported formats
+        ppm_file = file_name.replace(
+            *(f for f in format_list if f in file_name), ".ppm"
+        )
+        with open(ppm_file, "w") as f:
             f.write("P3\n")
             f.write(f"{self.WIDTH} {self.HEIGHT}\n")
             f.write("255\n")
@@ -31,6 +36,9 @@ class Canvas:
                         f"{int(pixel[0]):03d} {int(pixel[1]):03d} {int(pixel[2]):03d} "
                     )
                 f.write("\n")
+        with Image.open(ppm_file) as img:
+            img.save(file_name)
+        os.remove(ppm_file)
 
     # DRAW A RECTANGLE
     def draw_rectangle(self, x1: int, y1: int, x2: int, y2: int, color: tuple):
@@ -262,9 +270,8 @@ def animate(canvas):
     for frame in frames:
         canvas.set_bgcolor()  # Clear canvas
         canvas.draw_filled_circle(frame[0], 50, frame[1])  # Draw circle
-        canvas.save(f"frames/frame{i}.ppm")  # Save frame as PPM
-        # Convert frame to PNG if needed
-        # canvas.save_as_png("frame.ppm", "frame.png")  # Save frame as PNG
+        canvas.save(f"frames/frame{i}.png")  # Save frame as png
+
         # Display frame or save to file
         i += 1
         time.sleep(0.1)  # Adjust for desired frame rate
@@ -288,7 +295,7 @@ def interpolate(start_frame, end_frame, alpha):
 
 def main():
     canvas = Canvas(600, 600)
-    animate(canvas)
+    # animate(canvas)
 
 
 if __name__ == "__main__":

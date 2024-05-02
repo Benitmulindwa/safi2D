@@ -1,0 +1,59 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Canvas Animation</title>
+    <style>
+        #animation-container {
+            width: 600px;
+            height: 600px;
+
+            border: 1px solid #000;
+            justify-content: center;
+            display: flex;
+
+        }
+
+        #animation-frame {
+            width: 100%;
+            height: 100%;
+
+        }
+    </style>
+</head>
+
+<body>
+    <div id="animation-container">
+        <img id='animation-frame' src="" alt="frame">
+    </div>
+
+    <script>
+        // Function to display animation frames
+        function displayFrame(frameNumber) {
+            document.getElementById('animation-frame').src = 'frame' + frameNumber + '.png';
+        }
+
+        // Function to start the animation
+        function startAnimation() {
+            var frameNumber = 0;
+            var animationInterval = setInterval(function () {
+                frameNumber++;
+                displayFrame(frameNumber);
+                if (frameNumber >= TOTAL_FRAMES) {
+                    clearInterval(animationInterval);
+                }
+            }, FRAME_DURATION);
+        }
+
+        // Constants
+        var TOTAL_FRAMES = 59; // Adjust based on the number of frames generated
+        var FRAME_DURATION = 30; // Adjust for desired frame rate (milliseconds)
+
+        // Start the animation when the page loads
+        window.onload = startAnimation;
+    </script>
+</body>
+
+</html>

@@ -19,7 +19,7 @@ for y in range(0, rows):
         else:
             color = (200, 100, 0)  # Orange
         dame.draw_rectangle(x * (400 // rows), y * (400 // rows), 400, 400, color=color)
-dame.save("outputs/checkerboard.ppm")
+dame.save("outputs/checkerboard.png")
 
 # DRAW TWO PARALLEL LINES
 # ------------------------#
@@ -32,7 +32,7 @@ crossinglines.draw_line(0, HEIGHT // 2, 400, HEIGHT // 2, color=(0, 255, 0))
 
 # Draw a vertical line
 crossinglines.draw_line(WIDTH // 2, 0, WIDTH // 2, 400, color=(255, 0, 0))
-crossinglines.save("outputs/crossinglines.ppm")
+crossinglines.save("outputs/crossinglines.png")
 
 # DRAW A TRIANGLE
 # ----------------#
@@ -43,7 +43,7 @@ triangle = Canvas(WIDTH, HEIGHT)
 # draw a blue triangle
 triangle.draw_triangle(p1, p2, p3, (255, 0, 0))
 
-triangle.save("outputs/triangle.ppm")
+triangle.save("outputs/triangle.png")
 
 
 # DRAW A POLYGON
@@ -67,7 +67,7 @@ vertices = [
 
 # Draw an OCTOGON
 polygon.draw_filled_polygon(points=vertices, color=(255, 200, 0))
-polygon.save("outputs/filled_polygon.ppm")
+polygon.save("outputs/filled_polygon.png")
 
 HEIGHT = 600
 WIDTH = 600
@@ -80,4 +80,4 @@ control_points = [(100, 100), (200, 400), (400, 200), (500, 500)]
 # Draw the Bézier curve
 curve.draw_bezier_curve(control_points, (255, 0, 0))
 
-curve.save("outputs/bezier_curve.ppm")
+curve.save("outputs/bezier_curve.png")
