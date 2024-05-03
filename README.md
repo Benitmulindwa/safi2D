@@ -1,9 +1,13 @@
 # safi2D
 # 🚨(THIS LIBRARY IS A WORK IN PROGRESS)
 Safi2D is a 2D library written in pure Python without any exernal library
+## Installation
+
+```bash
+pip install git+https://github.com/Benitmulindwa/safi2D.git
+```
 ## Usage
-```
-```
+
 ## TODO:
 
 - Optimize line-drawing algorithm for better performance
