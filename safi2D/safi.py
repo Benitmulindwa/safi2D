@@ -271,10 +271,8 @@ def animate(canvas):
         canvas.set_bgcolor()  # Clear canvas
         canvas.draw_filled_circle(frame[0], 50, frame[1])  # Draw circle
         canvas.save(f"frames/frame{i}.png")  # Save frame as png
-
-        # Display frame or save to file
         i += 1
-        time.sleep(0.1)  # Adjust for desired frame rate
+        time.sleep(0.01)
 
 
 def interpolate(start_frame, end_frame, alpha):
@@ -295,7 +293,7 @@ def interpolate(start_frame, end_frame, alpha):
 
 def main():
     canvas = Canvas(600, 600)
-    # animate(canvas)
+    animate(canvas)
 
 
 if __name__ == "__main__":

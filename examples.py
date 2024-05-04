@@ -81,3 +81,12 @@ control_points = [(100, 100), (200, 400), (400, 200), (500, 500)]
 curve.draw_bezier_curve(control_points, (255, 0, 0))
 
 curve.save("outputs/bezier_curve.png")
+
+HEIGHT = 400
+WIDTH = 600
+
+curve = Canvas(WIDTH, HEIGHT)
+
+curve.draw_filled_circle(center=(WIDTH // 2, HEIGHT // 2), radius=80, color=(255, 0, 0))
+
+curve.save("outputs/filled_circle.png")
