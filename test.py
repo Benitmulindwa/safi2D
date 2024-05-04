@@ -7,7 +7,6 @@ class GUIWindow:
         self.root = tk.Tk()
         self.root.title("Safi2D")
         self.root.iconbitmap("assets/logo.ico")
-        self.icon_photo = ImageTk.PhotoImage(Image.open("assets/logo.png"))
         self.root.iconphoto(True, self.icon_photo)
 
         self.image = Image.open(image_path)
