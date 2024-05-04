@@ -29,13 +29,13 @@ This draws a red circle on a white background.
 
 ## TODO:
 
-- Optimize line-drawing algorithm for better performance
-- Implement support for ellipses and arcs
+- Optimize line-drawing algorithm for better performance ✔
+- Implement support for ellipses and arcs ✔
 - Add color and style options for shapes
 - Implement transformation functions (translation, rotation, scaling)
 - Integrate text rendering capabilities for annotations
 - Develop event handling mechanisms for user interaction
-- Extend export formats to include PNG, JPEG, and SVG
+- Extend export formats to include PNG, JPEG, and SVG ✔
 - Create comprehensive documentation and examples
 - Set up automated testing procedures
 - Engage with the developer community for feedback and collaboration
