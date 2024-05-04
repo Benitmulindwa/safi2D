@@ -1,12 +1,29 @@
-# safi2D
-# 🚨(THIS LIBRARY IS A WORK IN PROGRESS)
+# Safi2D
 Safi2D is a 2D library written in pure Python without any exernal library
+<img src="assets/logo.png" width=150 height=150>
+
+# 🚨(THIS LIBRARY IS A WORK IN PROGRESS)
+
 ## Installation
 
 ```bash
 pip install git+https://github.com/Benitmulindwa/safi2D.git
 ```
 ## Usage
+```python
+from safi2D.safi import Canvas
+
+HEIGHT = 400
+WIDTH = 600
+
+curve = Canvas(WIDTH, HEIGHT)
+
+curve.draw_filled_circle(center=(WIDTH // 2, HEIGHT // 2), radius=80, color=(255, 0, 0))
+
+curve.save("outputs/filled_circle.png")
+```
+### Output:
+<img src="outputs/filled_circle.png" width=600 height=400>
 
 ## TODO:
 
