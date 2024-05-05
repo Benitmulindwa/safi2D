@@ -1,5 +1,6 @@
 import math, os
-from PIL import Image
+from PIL import Image, ImageTk
+import tkinter as tk
 
 
 class Canvas:
@@ -241,6 +242,25 @@ class Canvas:
             x2, y2 = curve_points[i + 1]
             self.draw_line(int(x1), int(y1), int(x2), int(y2), color)
 
+    def show(self):
+        root = tk.Tk()
+        root.title("Canvas")
+        root.iconbitmap("assets/logo.ico")
+
+        # Convert the pixels to an image
+        img = Image.new("RGB", (self.WIDTH, self.HEIGHT))
+        pixels_flat = [color for row in self.pixels for color in row]
+        img.putdata(pixels_flat)
+
+        # Convert the image to a format compatible with Tkinter
+        img_tk = ImageTk.PhotoImage(img)
+
+        # Create a label to display the image
+        label = tk.Label(root, image=img_tk)
+        label.pack()
+
+        root.mainloop()
+
 
 import time
 
@@ -292,8 +312,12 @@ def interpolate(start_frame, end_frame, alpha):
 
 
 def main():
-    canvas = Canvas(600, 600)
-    animate(canvas)
+    canvas = Canvas(600, 600, bgcolor=(0, 0, 0))
+    canvas.draw_filled_circle((200, 100), 80, (200, 200, 40))
+    canvas.draw_filled_circle((200, 300), 80, (100, 250, 90))
+    canvas.draw_line(0, 0, 600, 600, (250, 250, 250))
+    # animate(canvas)
+    canvas.show()
 
 
 if __name__ == "__main__":
