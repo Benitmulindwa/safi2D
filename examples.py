@@ -87,9 +87,11 @@ curve.save("outputs/bezier_curve.png")
 HEIGHT = 400
 WIDTH = 600
 
-curve = Canvas(WIDTH, HEIGHT)
+filled_circle = Canvas(WIDTH, HEIGHT)
 
 # Draw a red circle
-curve.draw_filled_circle(center=(WIDTH // 2, HEIGHT // 2), radius=80, color=(255, 0, 0))
+filled_circle.draw_filled_circle(
+    center=(WIDTH // 2, HEIGHT // 2), radius=80, color=(255, 0, 0)
+)
 
-curve.save("outputs/filled_circle.png")
+filled_circle.save("outputs/filled_circle.png")
