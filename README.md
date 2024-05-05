@@ -1,5 +1,6 @@
 # Safi2D
 Safi2D is a 2D library written in pure Python without any exernal library
+
 <img src="assets/logo.png" width=150 height=150>
 
 # 🚨(THIS LIBRARY IS A WORK IN PROGRESS)
@@ -16,12 +17,13 @@ from safi2D.safi import Canvas
 HEIGHT = 400
 WIDTH = 600
 
-curve = Canvas(WIDTH, HEIGHT)
+circle = Canvas(WIDTH, HEIGHT)
 
 # Draw a red circle
-curve.draw_filled_circle(center=(WIDTH // 2, HEIGHT // 2), radius=80, color=(255, 0, 0))
+circle.draw_filled_circle(center=(WIDTH // 2, HEIGHT // 2), radius=80, color=(255, 0, 0))
 
-curve.save("outputs/filled_circle.png")
+# Save as a png file
+circle.save("outputs/filled_circle.png")
 ```
 This draws a red circle on a white background.
 ### Output:
