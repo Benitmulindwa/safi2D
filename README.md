@@ -29,6 +29,11 @@ This draws a red circle on a white background.
 ### Output:
 <img src="outputs/filled_circle.png" width=600 height=400>
 
+```
+# This opens a window with the shape on it without saving the image
+circle.show()
+```
+
 ## TODO:
 
 - Optimize line-drawing algorithm for better performance ✔
